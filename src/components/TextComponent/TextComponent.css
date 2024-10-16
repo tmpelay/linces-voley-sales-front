@@ -1,0 +1,19 @@
+.text {
+  color: #050505;
+}
+
+.title {
+  font-size: 2.125rem;
+}
+
+.subtitle {
+  font-size: 1.3em;
+}
+
+.body {
+  font-size: 1em;
+}
+
+.body-plus {
+  font-size: 1.1em;
+}

@@ -1,0 +1,21 @@
+.button__container {
+  width: 100%;
+}
+
+.button {
+  width: 100%;
+  padding: 20px 30px;
+  background-color: #153346;
+  color: #fafafa;
+  border: 4px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  transition: border 0.2s, background-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.button:hover {
+  border: 4px solid #153346;
+  color: #050505;
+  background-color: #fafafa;
+}

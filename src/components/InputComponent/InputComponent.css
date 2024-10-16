@@ -1,0 +1,33 @@
+.input__container {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 20px 30px;
+  background-color: #e3e3e8;
+  color: #050505;
+  border: none;
+  border-bottom: 4px solid transparent;
+  transition: border-bottom-color 0.2s;
+  outline: none;
+  font-size: 1em;
+}
+
+.input:hover,
+.input:active,
+.input:focus {
+  border-bottom-color: #153346;
+}
+
+.input::placeholder {
+  color: #050505;
+}
+
+.error {
+  border-bottom-color: #cc2626 !important;
+}
+
+.error::placeholder {
+  color: #cc2626;
+}
