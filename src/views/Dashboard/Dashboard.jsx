@@ -6,7 +6,7 @@ import InputComponent from "../../components/InputComponent/InputComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import OrdersList from "../../components/OrdersListComponent/OrdersList";
 import { salesRequest } from "../../api/sales.js";
-import { createOrderRequest } from "../../api/orders.js";
+import { createOrderRequest, ordersRequest } from "../../api/orders.js";
 import { useAuth } from "../../context/AuthContext.jsx";
 import ReactModal from "react-modal";
 
@@ -19,14 +19,23 @@ export default function Dashboard() {
     setSale(res.data[res.data.length - 1]);
   };
 
+  const [orders, setOrders] = useState([]);
+
+  const getOrders = async () => {
+    const res = await ordersRequest(user.id);
+    setOrders(res.data);
+  };
+
   useEffect(() => {
     getSale();
+    getOrders();
   }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = handleSubmit(async (data) => {
@@ -47,6 +56,7 @@ export default function Dashboard() {
     };
 
     createOrderRequest(newOrder);
+    reset();
   });
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -63,7 +73,11 @@ export default function Dashboard() {
     if (sale.active) {
       return (
         <div className="dashboard__container">
-          <ReactModal isOpen={modalOpen} onRequestClose={closeModal}>
+          <ReactModal
+            isOpen={modalOpen}
+            onRequestClose={closeModal}
+            className="dashboard__modal-container"
+          >
             <form onSubmit={onSubmit} className="orders__form">
               <InputComponent
                 id={"clientname"}
@@ -106,16 +120,18 @@ export default function Dashboard() {
             </form>
           </ReactModal>
           <div className="dashboard__header">
+            <ButtonComponent label={"Cerrar sesion"} onClick={logout} />
             <h1 className="dashboard__welcome">
-              Bienvenido, {user.name} {user.lastname}!
+              Bienvenido! {user.name} {user.lastname}
             </h1>
             <ButtonComponent label={"Nueva orden"} onClick={openModal} />
           </div>
           <OrdersList
+            orders={orders}
             dozen_price={sale.dozenPrice}
             half_dozen_price={sale.halfDozenPrice}
           />
-          <ButtonComponent label={"Cerrar sesion"} onClick={logout} />
+          <ButtonComponent label={"Actualizar"} onClick={getOrders} />
         </div>
       );
     }

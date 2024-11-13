@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import "./OrdersList.css";
-import { ordersRequest } from "../../api/orders";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
 import { useAuth } from "../../context/AuthContext";
 
-export default function OrdersList({ dozen_price, half_dozen_price }) {
+export default function OrdersList({ orders, dozen_price, half_dozen_price }) {
   const { user } = useAuth();
-  const [orders, setOrders] = useState([]);
-
-  const getOrders = async () => {
-    const res = await ordersRequest(user.id);
-    setOrders(res.data);
-  };
-
-  useEffect(() => {
-    getOrders();
-  }, []);
 
   return (
     <div className="orders-list__container">
