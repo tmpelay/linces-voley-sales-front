@@ -4,13 +4,14 @@ import "./OrdersList.css";
 import { ordersRequest } from "../../api/orders";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
+import { useAuth } from "../../context/AuthContext";
 
 export default function OrdersList({ dozen_price, half_dozen_price }) {
+  const { user } = useAuth();
   const [orders, setOrders] = useState([]);
 
   const getOrders = async () => {
-    const res = await ordersRequest();
-    console.log(res.data);
+    const res = await ordersRequest(user.id);
     setOrders(res.data);
   };
 
@@ -38,7 +39,7 @@ export default function OrdersList({ dozen_price, half_dozen_price }) {
       </div>
       {orders.map((element, index) => {
         const total_prize =
-          element.dozenAmount * dozen_price +
+          element.dozensAmount * dozen_price +
           element.halfDozensAmount * half_dozen_price;
         return (
           <div className="order__container" key={index}>
