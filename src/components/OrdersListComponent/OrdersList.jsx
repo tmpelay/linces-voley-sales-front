@@ -10,6 +10,7 @@ export default function OrdersList({ dozen_price, half_dozen_price }) {
 
   const getOrders = async () => {
     const res = await ordersRequest();
+    console.log(res.data);
     setOrders(res.data);
   };
 
@@ -37,21 +38,21 @@ export default function OrdersList({ dozen_price, half_dozen_price }) {
       </div>
       {orders.map((element, index) => {
         const total_prize =
-          element.dozens_amount * dozen_price +
-          element.half_dozens_amount * half_dozen_price;
+          element.dozenAmount * dozen_price +
+          element.halfDozensAmount * half_dozen_price;
         return (
           <div className="order__container" key={index}>
             <div className="order__index">
               <p>{index + 1}</p>
             </div>
             <div className="order__client-name">
-              <p>{element.client_name}</p>
+              <p>{element.client}</p>
             </div>
             <div className="order__dozens">
-              <p>{element.dozens_amount}</p>
+              <p>{element.dozensAmount}</p>
             </div>
             <div className="order__half-dozens">
-              <p>{element.half_dozens_amount}</p>
+              <p>{element.halfDozensAmount}</p>
             </div>
             <div className="order__price">
               <p>${total_prize}</p>

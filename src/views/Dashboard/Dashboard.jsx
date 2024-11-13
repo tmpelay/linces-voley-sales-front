@@ -11,7 +11,7 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import ReactModal from "react-modal";
 
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [sale, setSale] = useState([]);
 
   const getSale = async () => {
@@ -106,13 +106,16 @@ export default function Dashboard() {
             </form>
           </ReactModal>
           <div className="dashboard__header">
-            <h1 className="dashboard__welcome">Bienvenido, Adriel Garcia!</h1>
+            <h1 className="dashboard__welcome">
+              Bienvenido, {user.name} {user.lastname}!
+            </h1>
             <ButtonComponent label={"Nueva orden"} onClick={openModal} />
           </div>
           <OrdersList
-            dozen_price={sale.dozen_price}
-            half_dozen_price={sale.half_dozen_price}
+            dozen_price={sale.dozenPrice}
+            half_dozen_price={sale.halfDozenPrice}
           />
+          <ButtonComponent label={"Cerrar sesion"} onClick={logout} />
         </div>
       );
     }
